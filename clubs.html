@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>School Clubs | OB Montessori, Fairview</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+    body { background-color:#FFFFFF; font-family:Arial, sans-serif; }
+    nav { background-color:#0A1393; }
+    nav a { color:#FFFFFF; font-weight:600; margin-left:20px; }
+    nav a.active { color:#3844E9; }
+    h1,h3 { color:#3844E9; }
+    .card { background-color:#BDC1F2; }
+</style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark px-4">
+    <a class="navbar-brand" href="index.html">OB Montessori, Fairview</a>
+    <div class="collapse navbar-collapse">
+        <ul class="navbar-nav ms-auto">
+            <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="calculator.html">Grade Calculator</a></li>
+            <li class="nav-item"><a class="nav-link active" href="clubs.html">Clubs</a></li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container my-5">
+    <h1 class="mb-4">School Club Information</h1>
+    <label for="clubDropdown" class="form-label fw-bold">Select a Club:</label>
+    <select id="clubDropdown" class="form-select mb-4" onchange="showClubDetails()">
+        <option value="">-- Select a Club --</option>
+    </select>
+    <div id="clubDetails" class="card p-4" style="display:none;">
+        <h3 id="clubName"></h3>
+        <p><strong>Description:</strong> <span id="clubDescription"></span></p>
+        <p><strong>Meeting Time:</strong> <span id="clubMeeting"></span></p>
+        <p><strong>Location:</strong> <span id="clubLocation"></span></p>
+        <p><strong>Club Moderator:</strong> <span id="clubModerator"></span></p>
+        <p><strong>Number of Members:</strong> <span id="clubMembers"></span></p>
+        <p><strong>Category:</strong> <span id="clubCategory"></span></p>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+const clubs = {
+    "Chess Club": {"Description":"A club for chess enthusiasts of all skill levels.","Meeting Time":"Wednesday 3:30-5:00 PM","Location":"Room 404","Club Moderator":"Mr. Santos","Number of Members":"20","Category":"Academics"},
+    "Marching Band Club": {"Description":"Performs musical pieces while moving in formations, often supporting sports teams and competitions.","Meeting Time":"Tuesday and Wednesday 03:00-4:30 PM","Location":"Band Room","Club Moderator":"Mr. Emilio Alumno","Number of Members":"40 - 150+","Category":"Arts/Performance"},
+    "Glee Club": {"Description":"Singing group focusing on vocal harmony, performing popular songs and show tunes.","Meeting Time":"Monday 03:00-05:00 PM","Location":"High School Music Room","Club Moderator":"Mr. Denver Martin","Number of Members":"15 - 45","Category":"Arts/Performance"},
+    "Dance Club": {"Description":"Practice and perform various dance styles for assemblies and talent shows.","Meeting Time":"Tuesday 03:00-05:00 PM","Location":"Teatro Preciosa","Club Moderator":"Mr. Alfred Cases","Number of Members":"15 - 50","Category":"Arts/Performance"},
+    "Mathematics Club": {"Description":"Engage in advanced problem-solving, prepare for math competitions, and explore complex mathematical concepts.","Meeting Time":"Monday 02:30-03:00 PM","Location":"Room 404","Club Moderator":"Mr. Nicole Gabuya","Number of Members":"10 - 30","Category":"Academics"},
+    "Science Club": {"Description":"Conduct experiments, build projects, and explore topics across biology, chemistry, and physics.","Meeting Time":"Tuesday 03:00-04:00 PM","Location":"Room 404","Club Moderator":"Ms. Jameelyn Maramag","Number of Members":"-","Category":"Academics"},
+    "Communications Arts Club": {"Description":"Develop skills in public speaking, debate, journalism, creative writing, and media production.","Meeting Time":"Wednesday 03:00-04:00 PM, Friday 03:00-04:00 PM","Location":"Room 406","Club Moderator":"Ms. Yannis Fernandez","Number of Members":"20 - 50","Category":"Academics/Skills"},
+    "COCC (Cadet Officer Candidate Course)": {"Description":"Preparatory program for students interested in military or protective service careers, focusing on discipline, leadership, and physical training.","Meeting Time":"Wednesday 02:30-04:30 PM","Location":"Quadrangle/Teatro Preciosa","Club Moderator":"SSgt. Jemima David PA (Res)","Number of Members":"30 - 60","Category":"Service/Leadership"},
+    "Social Science Club": {"Description":"Explore history, government, economics, and psychology through discussions, debates, and community projects.","Meeting Time":"Tuesday 03:00-04:00 PM","Location":"Room 409","Club Moderator":"Mr. Roberto Lim","Number of Members":"10 - 30","Category":"Academics"},
+    "Volleyball Varsity Club": {"Description":"Highly competitive students, representing school in inter-scholastic volleyball tournaments.","Meeting Time":"Wednesday 03:00-04:00 PM","Location":"Quadrangle","Club Moderator":"Mr. Adrian Ruiz","Number of Members":"10 - 15","Category":"Athletics (Competitive)"},
+    "Basketball Varsity Club": {"Description":"Highly competitive students, representing school in inter-scholastic basketball tournaments.","Meeting Time":"Monday 03:00-04:00 PM","Location":"School PE Quadrangle","Club Moderator":"Mr. Adrian Ruiz","Number of Members":"10 - 15","Category":"Athletics (Competitive)"},
+    "Robotics Club": {"Description":"Design, build, and program robots for competitions.","Meeting Time":"Tuesday 03:45-05:30 PM","Location":"Computer Lab","Club Moderator":"Mr. Lena Pasco","Number of Members":"18","Category":"Academics"}
+};
+
+const dropdown = document.getElementById('clubDropdown');
+for (const club in clubs) {
+    const option = document.createElement('option');
+    option.value = club;
+    option.text = club;
+    dropdown.appendChild(option);
+}
+
+function showClubDetails() {
+    const selected = dropdown.value;
+    const detailsDiv = document.getElementById('clubDetails');
+    if(selected && clubs[selected]){
+        detailsDiv.style.display = 'block';
+        document.getElementById('clubName').innerText = selected;
+        document.getElementById('clubDescription').innerText = clubs[selected]["Description"];
+        document.getElementById('clubMeeting').innerText = clubs[selected]["Meeting Time"];
+        document.getElementById('clubLocation').innerText = clubs[selected]["Location"];
+        document.getElementById('clubModerator').innerText = clubs[selected]["Club Moderator"];
+        document.getElementById('clubMembers').innerText = clubs[selected]["Number of Members"];
+        document.getElementById('clubCategory').innerText = clubs[selected]["Category"];
+    } else {
+        detailsDiv.style.display = 'none';
+    }
+}
+</script>
+
+</body>
+</html>
